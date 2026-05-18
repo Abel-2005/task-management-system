@@ -1,0 +1,45 @@
+version: '3.8'
+services:
+  frontend:
+    image: nginx:stable-alpine
+    ports:
+      - '3000:80'
+    volumes:
+      - ./frontend:/usr/share/nginx/html:ro
+    depends_on:
+      - auth-service
+      - task-service
+
+  auth-service:
+    build:
+      context: ./auth-service
+    ports:
+      - '4000:4000'
+    environment:
+      - DATABASE_URL=postgres://postgres:postgres@database:5432/auth_db
+    depends_on:
+      - database
+
+  task-service:
+    build:
+      context: ./task-service
+    ports:
+      - '5000:5000'
+    environment:
+      - DATABASE_URL=postgres://postgres:postgres@database:5432/tasks_db
+    depends_on:
+      - database
+
+  database:
+    image: postgres:15-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - '5432:5432'
+    volumes:
+      - database_data:/var/lib/postgresql/data
+
+volumes:
+  database_data:

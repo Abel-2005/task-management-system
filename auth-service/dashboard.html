@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard - Task Management</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="container">
+    <header class="page-header">
+      <h1>Dashboard</h1>
+      <button id="logout-button" class="button secondary">Logout</button>
+    </header>
+
+    <section class="card">
+      <h2>Your Tasks</h2>
+      <form id="task-form" class="inline-form">
+        <input id="task-input" type="text" placeholder="Add a new task" required />
+        <button type="submit" class="button">Add Task</button>
+      </form>
+      <ul id="task-list" class="task-list"></ul>
+    </section>
+  </div>
+  <script src="js/tasks.js"></script>
+</body>
+</html>
