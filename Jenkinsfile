@@ -1,44 +1,33 @@
 pipeline {
-  agent any
-  environment {
-    DOCKER_REGISTRY = 'local'
-  }
-  stages {
-    stage('Checkout') {
-      steps {
-        checkout scm
-      }
-    }
-    stage('Build Services') {
-      parallel {
-        stage('Build auth-service') {
-          steps {
-            dir('auth-service') {
-              sh 'echo Building auth-service'
+
+    agent any
+
+    stages {
+
+        stage('Checkout') {
+            steps {
+                checkout scm
             }
-          }
         }
-        stage('Build task-service') {
-          steps {
-            dir('task-service') {
-              sh 'echo Building task-service'
+
+        stage('Build Auth Service') {
+            steps {
+                dir('auth-service') {
+                    bat 'mvn clean package -DskipTests'
+                }
             }
-          }
         }
-      }
+
+        stage('Docker Compose Build') {
+            steps {
+                bat 'docker compose up --build -d'
+            }
+        }
     }
-    stage('Compose Up') {
-      steps {
-        sh 'docker-compose -f docker-compose.yml up -d --build'
-      }
+
+    post {
+        always {
+            echo 'Pipeline finished.'
+        }
     }
-  }
-  post {
-    always {
-      echo 'Pipeline finished.'
-    }
-    cleanup {
-      sh 'docker-compose -f docker-compose.yml down'
-    }
-  }
 }
