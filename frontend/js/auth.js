@@ -1,20 +1,20 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const loginForm = document.getElementById('login-form');
-  const signupForm = document.getElementById('signup-form');
+    const loginForm = document.getElementById('login-form');
+    const signupForm = document.getElementById('signup-form');
 
-  if (loginForm) {
-    loginForm.addEventListener('submit', (event) => {
-      event.preventDefault();
-      localStorage.setItem('tm_token', 'demo-token');
-      window.location.href = 'dashboard.html';
-    });
-  }
+    if (loginForm) {
+        loginForm.addEventListener('submit', (event) => {
+            event.preventDefault();
+            localStorage.setItem('tm_token', 'demo-token');
+            window.location.href = 'dashboard.html';
+        });
+    }
 
-  if (signupForm) {
-    signupForm.addEventListener('submit', (event) => {
-      event.preventDefault();
-      localStorage.setItem('tm_token', 'demo-token');
-      window.location.href = 'dashboard.html';
-    });
-  }
+    if (signupForm) {
+        signupForm.addEventListener('submit', (event) => {
+            event.preventDefault();
+            localStorage.setItem('tm_token', 'demo-token');
+            window.location.href = 'dashboard.html';
+        });
+    }
 });

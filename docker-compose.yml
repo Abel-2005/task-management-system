@@ -1,43 +1,51 @@
 version: '3.8'
+
 services:
+
   frontend:
     image: nginx:stable-alpine
+
     ports:
-      - '3000:80'
+      - "3000:80"
+
     volumes:
       - ./frontend:/usr/share/nginx/html:ro
+
     depends_on:
       - auth-service
-      - task-service
 
   auth-service:
     build:
       context: ./auth-service
-    ports:
-      - '4000:4000'
-    environment:
-      - DATABASE_URL=postgres://postgres:postgres@database:5432/auth_db
-    depends_on:
-      - database
 
-  task-service:
-    build:
-      context: ./task-service
+    container_name: auth-service-container
+
     ports:
-      - '5000:5000'
+      - "8081:8081"
+
     environment:
-      - DATABASE_URL=postgres://postgres:postgres@database:5432/tasks_db
+      SPRING_DATASOURCE_URL: jdbc:postgresql://database:5432/auth_db
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres123
+
     depends_on:
       - database
 
   database:
-    image: postgres:15-alpine
+    image: postgres:17-alpine
+
+    container_name: postgres-db
+
     restart: unless-stopped
+
     environment:
+      POSTGRES_DB: auth_db
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
+      POSTGRES_PASSWORD: postgres123
+
     ports:
-      - '5432:5432'
+      - "5432:5432"
+
     volumes:
       - database_data:/var/lib/postgresql/data
 
