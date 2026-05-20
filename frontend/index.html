@@ -5,26 +5,66 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Task Management</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css" />
 </head>
 
 <body>
-    <div class="container">
-        <header>
-            <h1>Task Management System</h1>
-            <p>Track your tasks, manage your day, and stay organized.</p>
-        </header>
-
-        <main>
-            <div class="card">
-                <h2>Welcome</h2>
-                <p>Sign up or log in to manage your tasks.</p>
-                <div class="actions">
-                    <a href="login.html" class="button">Login</a>
-                    <a href="signup.html" class="button secondary">Sign Up</a>
-                </div>
+    <div class="page-root">
+        <nav class="nav">
+            <div class="nav-left">
+                <div class="logo">TMS</div>
+                <div class="brand">Task Management</div>
             </div>
+            <div class="nav-right">
+                <a class="nav-link" href="login.html">Login</a>
+                <a class="nav-link btn-ghost" href="signup.html">Sign Up</a>
+            </div>
+        </nav>
+
+        <main class="hero">
+            <section class="hero-card card-animate">
+                <h1>Modern DevOps Task Dashboard</h1>
+                <p class="muted">Track deployments, monitor pipelines, and keep your cloud workflow visible in one clean
+                    dashboard.</p>
+                <div class="actions">
+                    <a href="login.html" class="button">Get Started</a>
+                    <a href="signup.html" class="button secondary">Create Account</a>
+                </div>
+                <div class="visual-grid" style="margin-top:24px">
+                    <div class="mini-card">Builds: <strong>5</strong></div>
+                    <div class="mini-card">Passing: <strong>4</strong></div>
+                    <div class="mini-card">Deploys: <strong>2</strong></div>
+                    <div class="mini-card">Issues: <strong>1</strong></div>
+                </div>
+            </section>
+            <section class="hero-visual card-animate" aria-hidden>
+                <div class="panel" style="padding:24px">
+                    <h3 style="margin-top:0">Service Health</h3>
+                    <div style="display:flex;flex-direction:column;gap:12px;margin-top:18px">
+                        <div class="status-row"><span class="status-dot online pulse"></span> Jenkins Pipeline <span
+                                class="muted">Running</span></div>
+                        <div class="status-row"><span class="status-dot success pulse"></span> GitHub Actions <span
+                                class="muted">Passed</span></div>
+                        <div class="status-row"><span class="status-dot online pulse"></span> Docker Containers <span
+                                class="muted">Active</span></div>
+                        <div class="status-row"><span class="status-dot success pulse"></span> PostgreSQL <span
+                                class="muted">Connected</span></div>
+                    </div>
+                </div>
+            </section>
         </main>
+        <footer class="site-footer">
+            <div class="muted">Built for demo presentations</div>
+            <div class="tech-list">
+                <div class="tech-item">Docker</div>
+                <div class="tech-item">Jenkins</div>
+                <div class="tech-item">GitHub Actions</div>
+                <div class="tech-item">PostgreSQL</div>
+            </div>
+        </footer>
     </div>
 </body>
 

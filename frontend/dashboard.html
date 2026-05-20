@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard - Task Management</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body>
+    <div class="page-root">
+        <nav class="nav">
+            <div class="nav-left">
+                <div class="logo">
+                    <!-- lightweight svg logo -->
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <rect x="2" y="3" width="20" height="18" rx="3" fill="white" opacity="0.06"></rect>
+                        <path d="M6 8h4v8H6zM14 8h4v8h-4z" fill="white" opacity="0.9"></path>
+                    </svg>
+                </div>
+                <div class="brand">Task Management</div>
+            </div>
+            <div class="nav-right">
+                <div class="chip">devops@example.com</div>
+                <button id="logout-button" class="nav-link btn-ghost">Logout</button>
+            </div>
+        </nav>
+
+        <main>
+            <div class="hero" style="grid-template-columns: 1fr 360px; gap:20px;">
+                <section class="hero-card">
+                    <h1>DevOps Monitoring Dashboard</h1>
+                    <p class="muted">Overview of pipelines, containers and database health. Lightweight demo UI for
+                        presentations.</p>
+                    <div class="actions">
+                        <a href="#tasks" class="button">View Tasks</a>
+                        <button class="button secondary">Refresh</button>
+                    </div>
+                </section>
+
+                <aside>
+                    <div class="panel">
+                        <h3 style="margin-top:0">Pipeline Status</h3>
+                        <div style="margin-top:12px;display:flex;flex-direction:column;gap:10px">
+                            <div class="status-row card-animate"><svg class="status-icon" viewBox="0 0 24 24"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="12" cy="12" r="10" fill="#F6AD55" />
+                                </svg> <strong>Jenkins Pipeline</strong> <span class="muted">→ Running</span></div>
+                            <div class="status-row card-animate"><svg class="status-icon" viewBox="0 0 24 24"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="12" cy="12" r="10" fill="#34D399" />
+                                </svg> <strong>GitHub Actions</strong> <span class="muted">→ Passed</span></div>
+                            <div class="status-row card-animate"><svg class="status-icon" viewBox="0 0 24 24"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <rect x="4" y="4" width="16" height="16" rx="3" fill="#60A5FA" />
+                                </svg> <strong>Docker Containers</strong> <span class="muted">→ Active</span></div>
+                            <div class="status-row card-animate"><svg class="status-icon" viewBox="0 0 24 24"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M5 12h14" stroke="#8B5CF6" stroke-width="2" stroke-linecap="round" />
+                                </svg> <strong>PostgreSQL Database</strong> <span class="muted">→ Connected</span></div>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+
+            <div class="dashboard" style="margin-top:18px" id="tasks">
+                <section>
+                    <div class="summary">
+                        <div class="summary-card">
+                            <h3>Total Tasks</h3>
+                            <p id="total-tasks">0</p>
+                        </div>
+                        <div class="summary-card">
+                            <h3>Active</h3>
+                            <p id="active-tasks">0</p>
+                        </div>
+                        <div class="summary-card">
+                            <h3>Completed</h3>
+                            <p id="completed-tasks">0</p>
+                        </div>
+                    </div>
+
+                    <div class="panel" style="margin-top:14px">
+                        <div class="tasks-header">
+                            <h2 style="margin:0">Tasks</h2>
+                            <div class="muted">Click a task to remove it</div>
+                        </div>
+
+                        <form id="task-form" class="inline-form">
+                            <input id="task-input" placeholder="Add new task, e.g. Run nightly build" />
+                            <button class="button" type="submit">Add</button>
+                        </form>
+
+                        <ul id="task-list" class="task-list" style="margin-top:12px"></ul>
+                    </div>
+
+                    <div class="panel" style="margin-top:14px">
+                        <h3 style="margin-top:0">Recent Activity</h3>
+                        <div style="margin-top:12px;display:flex;flex-direction:column;gap:8px">
+                            <div class="mini-card card-animate"><svg class="icon" viewBox="0 0 24 24"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M3 12h18" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                                </svg> Jenkins: <strong class="muted">Pipeline #452 started</strong></div>
+                            <div class="mini-card card-animate"><svg class="icon" viewBox="0 0 24 24"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <rect x="3" y="4" width="18" height="16" rx="2" />
+                                </svg> Docker: <strong class="muted">Deployed web-service:2.1</strong></div>
+                            <div class="mini-card card-animate"><svg class="icon" viewBox="0 0 24 24"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="1.6"
+                                        stroke-linecap="round" stroke-linejoin="round" />
+                                </svg> GitHub Actions: <strong class="muted">Workflow ci.yml completed</strong></div>
+                            <div class="mini-card card-animate"><svg class="icon" viewBox="0 0 24 24"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <ellipse cx="12" cy="12" rx="8" ry="5" />
+                                </svg> Postgres: <strong class="muted">Backup completed</strong></div>
+                        </div>
+                    </div>
+                </section>
+
+                <aside>
+                    <div class="panel">
+                        <h3 style="margin-top:0">Pipeline Summary</h3>
+                        <div style="margin-top:12px;display:flex;flex-direction:column;gap:8px">
+                            <div class="mini-card">Latest Build: <strong class="muted">#562 passed</strong></div>
+                            <div class="mini-card">Staging: <strong class="muted">up</strong></div>
+                            <div class="mini-card">Production: <strong class="muted">up</strong></div>
+                        </div>
+                    </div>
+
+                    <div class="panel" style="margin-top:12px">
+                        <h3 style="margin-top:0">Quick Actions</h3>
+                        <div style="display:flex;flex-direction:column;gap:8px;margin-top:12px">
+                            <button class="button">Run Build</button>
+                            <button class="button secondary">Trigger Deploy</button>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </main>
+        <footer class="site-footer">
+            <div class="muted">Powered by</div>
+            <div class="tech-list">
+                <div class="tech-item">Docker</div>
+                <div class="tech-item">Jenkins</div>
+                <div class="tech-item">GitHub Actions</div>
+                <div class="tech-item">Spring Boot</div>
+                <div class="tech-item">PostgreSQL</div>
+            </div>
+            <div class="muted">Demo • Presentation Mode</div>
+        </footer>
+
+    </div>
+    <script src="js/tasks.js"></script>
+</body>
+
+</html>

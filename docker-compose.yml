@@ -18,8 +18,6 @@ services:
     build:
       context: ./auth-service
 
-    container_name: auth-service-container
-
     ports:
       - "8081:8081"
 
@@ -33,8 +31,6 @@ services:
 
   database:
     image: postgres:17-alpine
-
-    container_name: postgres-db
 
     restart: unless-stopped
 

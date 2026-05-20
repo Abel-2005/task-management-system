@@ -5,23 +5,33 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Login - Task Management</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css" />
 </head>
 
 <body>
-    <div class="container">
-        <div class="card form-card">
-            <h2>Login</h2>
-            <form id="login-form">
-                <label for="email">Email</label>
-                <input id="email" name="email" type="email" required />
+    <div class="page-root auth-page">
+        <div class="auth-card">
+            <div class="auth-left">
+                <h2>Welcome Back</h2>
+                <p class="muted">Sign in to access your tasks and CI/CD insights.</p>
+                <form id="login-form" class="auth-form">
+                    <label for="email">Email</label>
+                    <input id="email" name="email" type="email" required />
 
-                <label for="password">Password</label>
-                <input id="password" name="password" type="password" required />
+                    <label for="password">Password</label>
+                    <input id="password" name="password" type="password" required />
 
-                <button type="submit" class="button">Login</button>
-            </form>
-            <p class="small">Don't have an account? <a href="signup.html">Sign up</a></p>
+                    <button type="submit" class="button">Sign In</button>
+                </form>
+                <p class="small muted">Don't have an account? <a href="signup.html">Create one</a></p>
+            </div>
+            <div class="auth-right">
+                <div class="brand-large">TMS</div>
+                <p class="muted">DevOps focused task management — demo-ready UI.</p>
+            </div>
         </div>
     </div>
     <script src="js/auth.js"></script>
