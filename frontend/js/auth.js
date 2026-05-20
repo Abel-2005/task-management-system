@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Try to call backend /signup if available. If it fails, fallback to demo mode.
             try {
-                const res = await fetch('/signup', {
+                const res = await fetch('/api/signup', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ username: email || name, password })

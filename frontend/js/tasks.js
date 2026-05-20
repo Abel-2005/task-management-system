@@ -3,9 +3,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const taskList = document.getElementById('task-list');
     const logoutButton = document.getElementById('logout-button');
     const refreshButton = document.getElementById('refresh-button');
-    const API_URL = ['localhost', '127.0.0.1'].includes(window.location.hostname)
-        ? 'http://localhost:8081/tasks'
-        : '/tasks';
+    // Use relative API paths; reverse proxy routes /api/* to auth-service
+    const API_URL = '/api/tasks';
 
     if (!localStorage.getItem('tm_token')) {
         window.location.href = 'login.html';
