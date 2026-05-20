@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
 
   reverse-proxy:
@@ -13,7 +11,9 @@ services:
       - auth-service
 
   frontend:
-    image: nginx:stable-alpine
+    build:
+      context: ./frontend
+    image: task-management-frontend:latest
     volumes:
       - ./frontend:/usr/share/nginx/html:ro
     depends_on:

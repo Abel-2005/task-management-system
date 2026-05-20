@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/style.css?v=20260521-4" />
 </head>
 
 <body>
@@ -49,19 +49,19 @@
                             <div class="status-row card-animate"><svg class="status-icon" viewBox="0 0 24 24"
                                     xmlns="http://www.w3.org/2000/svg">
                                     <circle cx="12" cy="12" r="10" fill="#F6AD55" />
-                                </svg> <strong>Jenkins Pipeline</strong> <span class="muted">→ Running</span></div>
+                                </svg> <strong>Jenkins Pipeline</strong> <span id="pipeline-status-value" class="muted">Running</span></div>
                             <div class="status-row card-animate"><svg class="status-icon" viewBox="0 0 24 24"
                                     xmlns="http://www.w3.org/2000/svg">
                                     <circle cx="12" cy="12" r="10" fill="#34D399" />
-                                </svg> <strong>GitHub Actions</strong> <span class="muted">→ Passed</span></div>
+                                </svg> <strong>GitHub Actions</strong> <span id="github-status-value" class="muted">Passed</span></div>
                             <div class="status-row card-animate"><svg class="status-icon" viewBox="0 0 24 24"
                                     xmlns="http://www.w3.org/2000/svg">
                                     <rect x="4" y="4" width="16" height="16" rx="3" fill="#60A5FA" />
-                                </svg> <strong>Docker Containers</strong> <span class="muted">→ Active</span></div>
+                                </svg> <strong>Docker Containers</strong> <span id="docker-status-value" class="muted">Active</span></div>
                             <div class="status-row card-animate"><svg class="status-icon" viewBox="0 0 24 24"
                                     xmlns="http://www.w3.org/2000/svg">
                                     <path d="M5 12h14" stroke="#8B5CF6" stroke-width="2" stroke-linecap="round" />
-                                </svg> <strong>PostgreSQL Database</strong> <span class="muted">→ Connected</span></div>
+                                </svg> <strong>PostgreSQL Database</strong> <span id="database-status-value" class="muted">Connected</span></div>
                         </div>
                     </div>
                 </aside>
@@ -86,12 +86,15 @@
 
                     <div class="panel" style="margin-top:14px">
                         <div class="tasks-header">
-                            <h2 style="margin:0">Tasks</h2>
-                            <div class="muted">Add and view tasks stored in the backend.</div>
+                            <div>
+                                <h2 style="margin:0">Tasks</h2>
+                                <div class="muted">Create and manage deployment tasks</div>
+                            </div>
                         </div>
 
                         <form id="task-form" class="inline-form">
-                            <input id="task-input" placeholder="Add new task, e.g. Run nightly build" />
+                            <input id="task-input"
+                                placeholder="Add new task, e.g. Deploy to staging, Run nightly build" />
                             <button class="button" type="submit">Add</button>
                         </form>
 
@@ -100,24 +103,11 @@
 
                     <div class="panel" style="margin-top:14px">
                         <h3 style="margin-top:0">Recent Activity</h3>
-                        <div style="margin-top:12px;display:flex;flex-direction:column;gap:8px">
+                        <div id="activity-feed" style="margin-top:12px;display:flex;flex-direction:column;gap:8px">
                             <div class="mini-card card-animate"><svg class="icon" viewBox="0 0 24 24"
                                     xmlns="http://www.w3.org/2000/svg">
                                     <path d="M3 12h18" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
-                                </svg> Jenkins: <strong class="muted">Pipeline #452 started</strong></div>
-                            <div class="mini-card card-animate"><svg class="icon" viewBox="0 0 24 24"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <rect x="3" y="4" width="18" height="16" rx="2" />
-                                </svg> Docker: <strong class="muted">Deployed web-service:2.1</strong></div>
-                            <div class="mini-card card-animate"><svg class="icon" viewBox="0 0 24 24"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="1.6"
-                                        stroke-linecap="round" stroke-linejoin="round" />
-                                </svg> GitHub Actions: <strong class="muted">Workflow ci.yml completed</strong></div>
-                            <div class="mini-card card-animate"><svg class="icon" viewBox="0 0 24 24"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <ellipse cx="12" cy="12" rx="8" ry="5" />
-                                </svg> Postgres: <strong class="muted">Backup completed</strong></div>
+                                </svg><strong class="muted">Loading activity...</strong></div>
                         </div>
                     </div>
                 </section>
@@ -126,17 +116,27 @@
                     <div class="panel">
                         <h3 style="margin-top:0">Pipeline Summary</h3>
                         <div style="margin-top:12px;display:flex;flex-direction:column;gap:8px">
-                            <div class="mini-card">Latest Build: <strong class="muted">#562 passed</strong></div>
-                            <div class="mini-card">Staging: <strong class="muted">up</strong></div>
-                            <div class="mini-card">Production: <strong class="muted">up</strong></div>
+                            <div class="mini-card">Latest Build: <strong id="latest-build-value" class="muted">Checking...</strong></div>
+                            <div class="mini-card">Staging: <strong id="staging-value" class="muted">Checking...</strong></div>
+                            <div class="mini-card">Production: <strong id="production-value" class="muted">Checking...</strong></div>
                         </div>
                     </div>
 
                     <div class="panel" style="margin-top:12px">
                         <h3 style="margin-top:0">Quick Actions</h3>
                         <div style="display:flex;flex-direction:column;gap:8px;margin-top:12px">
-                            <button class="button">Run Build</button>
-                            <button class="button secondary">Trigger Deploy</button>
+                            <button id="run-build-btn" class="button">
+                                <span id="build-text">Run Build</span>
+                            </button>
+                            <button id="trigger-deploy-btn" class="button secondary">
+                                <span id="deploy-text">Trigger Deploy</span>
+                            </button>
+                            <button id="check-db-btn" class="button secondary">
+                                <span id="db-text">Check DB</span>
+                            </button>
+                            <button id="health-check-btn" class="button secondary">
+                                <span id="health-text">Health Check</span>
+                            </button>
                         </div>
                     </div>
                 </aside>
@@ -151,11 +151,11 @@
                 <div class="tech-item">Spring Boot</div>
                 <div class="tech-item">PostgreSQL</div>
             </div>
-            <div class="muted">Demo • Presentation Mode</div>
+            <div class="muted">Demo | Presentation Mode</div>
         </footer>
 
     </div>
-    <script src="js/tasks.js"></script>
+    <script src="js/tasks.js?v=20260521-4"></script>
 </body>
 
 </html>
